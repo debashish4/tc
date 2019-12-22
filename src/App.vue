@@ -1,32 +1,50 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <header></header>
+    <div class="container-wrap">
+      <main>
+        <router-view />
+      </main>
+      <aside>
+      <categories></categories>
+      </aside>
     </div>
-    <router-view/>
   </div>
 </template>
 
+<script>
+import { mapActions, mapState } from "vuex";
+import { TRUECALLER_POSTS } from "@/constants/api_constants";
+import Categories from "@/views/Categories"
+export default {
+  data() {
+    return {};
+  },
+  mounted() {
+    this.fetchAllPosts(TRUECALLER_POSTS);
+  },
+  methods: {
+    ...mapActions(["fetchAllPosts"])
+  },
+  computed: {
+    ...mapState(["posts"])
+  },
+  components:{
+    Categories
+  }
+};
+</script>
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+
+#app .container-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+main {
+  min-width: 740px;
+  flex-grow: 3;
+  flex-basis: 0;
 }
 </style>
