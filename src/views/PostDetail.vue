@@ -1,16 +1,25 @@
 <template>
   <section class="blog-post-detail-container">
     <article>
-      <div class="post-header"></div>
-      <div class="post-image"></div>
+      <post-header
+        :post-date="selectedPostDetails.date"
+        :post-title="selectedPostDetails.title"
+        :author-first="selectedPostDetails.author ? selectedPostDetails.author.first_name: ''"
+        :author-second="selectedPostDetails.author ? selectedPostDetails.author.last_name: ''"
+        :update-time="60"
+      ></post-header>
       <div class="post-content">
+        <img :src="selectedPostDetails.guid" alt="image" />
         <p v-html="selectedPostDetails.content"></p>
       </div>
     </article>
+    <related-posts></related-posts>
   </section>
 </template>
 <script>
 import { mapState } from "vuex";
+import PostHeader from "@/components/PostHeader.vue";
+import RelatedPosts from "@/components/RelatedPosts.vue";
 export default {
   name: "postDetail",
   data() {
@@ -18,6 +27,10 @@ export default {
   },
   computed: {
     ...mapState(["selectedPostDetails"])
+  },
+  components: {
+    PostHeader,
+    RelatedPosts
   }
 };
 </script>

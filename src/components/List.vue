@@ -1,16 +1,13 @@
-<template>
+  <template>
   <section id="list">
     <article class="blog-post" :key="data.ID" v-for="data in dataList">
-      <div class="post-header-wrap">
-        <h2 class="post-title">
-          <a href="#">{{data.title}}</a>
-        </h2>
-        <div class="post-meta">
-          <span class="post-author">
-            <a :href="data.URL" target="_blank" title="Sora Blogging Tips">Sora Blogging Tips</a>
-          </span>
-        </div>
-      </div>
+      <post-header
+        :post-date="data.date"
+        :post-title="data.title"
+        :author-first="data.author ? data.author.first_name: ''"
+        :author-second="data.author ? data.author.last_name: ''"
+        :update-time="60"
+      ></post-header>
       <div class="post-image-wrap">
         <div class="post-image-meta"></div>
         <a class="post-image-link" href="#">
@@ -20,7 +17,7 @@
       <div class="post-content-wrap">
         <div class="post-content">
           <p class="post-excerpt" v-html="data.excerpt"></p>
-          <button @click="navigateToDetailPage(data.ID)">Read more</button>
+          <read-more align="center" :post-ID="data.ID">Continue Reading</read-more>
         </div>
       </div>
     </article>
@@ -28,18 +25,16 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import PostHeader from "./PostHeader";
+import ReadMore from "./ReadMore";
 export default {
   name: "List",
   data() {
     return {};
   },
-  methods: {
-      ...mapActions(["fetchSinglePostDetail"]),
-    navigateToDetailPage(postID) {
-      this.fetchSinglePostDetail(postID);
-       this.$router.push({name: "postDetail"});
-    }
+  components: {
+    PostHeader,
+    ReadMore
   },
   props: {
     msg: String,
@@ -47,7 +42,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .blog-post {
   background-color: #fff;
   border-radius: 1px;
@@ -60,11 +55,6 @@ export default {
   .post-image-wrap {
     .post-image-thumb {
       width: 100%;
-    }
-  }
-
-  .post-content-wrap {
-    .post-excerpt {
     }
   }
 }

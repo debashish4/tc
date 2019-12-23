@@ -3,7 +3,7 @@ import { WORDPRESS_BASE_URL, TRUECALLER_SITE_ID } from "@/constants/api_constant
 
 
 
-//Fetch Posts or Categories by providing respective endpoints
+//Fetch All Posts, All Categories or All tags by providing respective endpoints
 export const requestData = (endpoint, number = 25) => {
     return axios({
         method: "GET",
@@ -39,6 +39,27 @@ export const requestOldPost = (page_handle, number = 2) => {
         params: {
             number,
             page_handle
+        },
+    });
+}
+
+export const requestPostsBytag = (tagName, number = 25) => {
+    return axios({
+        method: "GET",
+        url: `${WORDPRESS_BASE_URL}${TRUECALLER_SITE_ID}/posts`,
+        params: {
+            tag: tagName,
+            number
+        },
+    });
+}
+
+export const requestRelatedPost = (postID) => {
+    return axios({
+        method: "POST",
+        url: `${WORDPRESS_BASE_URL}${TRUECALLER_SITE_ID}/posts/${postID}/related`,
+        params: {
+            size: 3
         },
     });
 }

@@ -2,5 +2,6 @@ export default {
     categories: [],
     posts: [],
     selectedPostDetails: {},
-    nextPage: ""
+    nextPage: "",
+    relatedPosts: []
 }

@@ -1,31 +1,27 @@
 <template>
   <div class="blog-posts-container">
     <list :data-list="this.posts"></list>
-    <div class="load-more">
-      <button @click="loadOldPost">Older Post</button>
-    </div>
+    <load-more align="right">
+      Older Post
+    </load-more>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import List from "@/components/List.vue";
-import { mapState, mapActions } from "vuex";
+import LoadMore from "@/components/LoadMore.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "posts",
 
   computed: {
-    ...mapState(["posts","nextPage"])
-  },
-  methods:{
-    ...mapActions(["fetchOldPosts"]),
-    loadOldPost(){
-      this.fetchOldPosts(this.nextPage);
-    }
+    ...mapState(["posts"])
   },
   components: {
-    List //tc stands for true caller
+    List,
+    LoadMore
   }
 };
 </script>
