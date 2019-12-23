@@ -20,7 +20,7 @@
       <div class="post-content-wrap">
         <div class="post-content">
           <p class="post-excerpt" v-html="data.excerpt"></p>
-          <router-link to="post_detail">Read more</router-link>
+          <button @click="navigateToDetailPage(data.ID)">Read more</button>
         </div>
       </div>
     </article>
@@ -28,10 +28,18 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
 export default {
   name: "List",
   data() {
     return {};
+  },
+  methods: {
+      ...mapActions(["fetchSinglePostDetail"]),
+    navigateToDetailPage(postID) {
+      this.fetchSinglePostDetail(postID);
+       this.$router.push({name: "postDetail"});
+    }
   },
   props: {
     msg: String,
@@ -44,63 +52,20 @@ export default {
   background-color: #fff;
   border-radius: 1px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+  margin: 20px;
   margin-bottom: 60px;
   padding: 30px 30px 1px 30px;
   overflow: hidden;
 
-
-  .post-image-wrap{
-      .post-image-thumb{
-          width:100%;
-      }
+  .post-image-wrap {
+    .post-image-thumb {
+      width: 100%;
+    }
   }
 
-  .post-content-wrap{
-      .post-excerpt{
-     
-      }
+  .post-content-wrap {
+    .post-excerpt {
+    }
   }
 }
-
-// .blog-post {
-//   display: flex;
-//   margin-bottom: 20px;
-//   .post-image-wrap {
-//     width: 312px;
-//     height: 195px;
-//     margin: 0 20px 0 0;
-//     flex-shrink: 0;
-//     .post-image-link {
-//       display: inline-block;
-//     }
-//     .post-image-thumb {
-//       width: 100%;
-//       border-radius: 10px;
-//     }
-//   }
-
-//   .post-content-wrap {
-//     .post-title {
-//       margin-block-start: 0;
-//       margin-block-end: 0;
-//     }
-//     .read-more {
-//       display: inline-block;
-//       background-color: #007dcc;
-//       color: #fff;
-//       height: 28px;
-//       font-size: 13px;
-//       font-weight: 600;
-//       line-height: 28px;
-//       padding: 0 15px;
-//       margin: 12px 0 0;
-//       border-radius: 2px;
-//       transition: background 0.17s ease;
-//       &:hover {
-//         background: #0b6ba6;
-//       }
-//     }
-//   }
-// }
 </style>

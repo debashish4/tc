@@ -21,4 +21,8 @@ body{
     content: " ";
     display:block;
     clear:both;
-} 
+}
+
+button {
+    outline: none;
+}

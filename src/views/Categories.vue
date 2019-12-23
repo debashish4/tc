@@ -2,9 +2,9 @@
   <div class="categories-list-container">
     <h3 class="category-header">CATEGORIES</h3>
     <div class="categories" :key="category.ID" v-for="category in categories">
-      <a href="#">
+      <button @click="goToAllPosts(category.name)">
         <span>{{category.name}}</span>
-      </a>
+      </button>
     </div>
   </div>
 </template>
@@ -17,11 +17,16 @@ export default {
     return {};
   },
   mounted() {
-    console.log("Sfsf");
     this.fetchCategories(TRUECALLER_CATEGORIES);
   },
   methods: {
-    ...mapActions(["fetchCategories"])
+    ...mapActions(["fetchCategories", "fetchPostsByCategory"]),
+    goToAllPosts(catName) {
+      this.fetchPostsByCategory(catName);
+      this.$router.push({ name: "posts" }).catch(err => {
+        return err;
+      });
+    }
   },
   computed: {
     ...mapState(["categories"])
@@ -43,20 +48,24 @@ export default {
     margin-block-end: 0;
   }
   .categories {
-    padding: 15px 20px;
     background: #fff;
     border-bottom: 1px solid #f3f3f3;
     text-transform: uppercase;
-    a {
+    button {
       font-size: 16px;
       font-weight: bolder;
+      background: transparent;
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 15px 20px;
+      text-align: left;
       position: relative;
       left: 0;
       transition: left 200ms ease;
-    }
-    &:hover {
-      a {
+      &:hover {
         left: 10px;
+        cursor: pointer;
       }
     }
   }

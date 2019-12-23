@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <header></header>
+      <h1>TrueCaller Blog</h1>
     <div class="container-wrap">
       <main>
         <router-view />
@@ -38,6 +39,7 @@ export default {
 
 #app .container-wrap {
   max-width: 1120px;
+  overflow: hidden;
   margin: 0 auto;
   display: flex;
 }
